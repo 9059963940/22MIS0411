@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+# CampusLink-Priority: Real-Time Intelligent Notification Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An enterprise-grade, real-time campus notification portal built as part of the **Afford Medical Technologies Placement Evaluation Pipeline**. This application ingests complex notification payloads from a remote campus server, dynamically sorts them using a deterministic weighted priority scheduling engine, and manages state streams across asynchronous REST API fetches and non-blocking real-time WebSockets.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🧑‍💻 Candidate & Submission Metadata
+* **Student Name:** seelam deepika
+* **Registration / Roll Number:** 22MIS0411
+* **Academic Institution:** Vellore Institute of Technology (VIT)
+* **Target Role:** Software Development Engineer (SDE) Track
+* **Evaluation Context:** Afford Medical Technologies Technical Screening
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🚀 Core Features & Architecture
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 1. Stage 1: Deterministic Priority Sorting Architecture
+Implemented a rigorous priority scoring model inside a decoupled engine (`stage1_priority.js`). Messages are categorized and ranked using explicit operational weights combined with deep epoch timestamp comparisons:
+* 🔴 **Placement Updates (Weight: 3):** Urgent career opportunities, interview shortlists, and company updates.
+* 🟡 **Result Announcements (Weight: 2):** Academic grade sheets, exam schedules, and pass logs.
+* 🔵 **General Campus Events (Weight: 1):** Cultural forums, guest lectures, and standard announcements.
 
-### `npm test`
+If weights match perfectly, the system breaks ties gracefully by ordering the stream chronologically based on precise ISO-8601 server timestamps.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2. Stage 2: Telemetry Logging & Interactive Component State
+* Fully tracked user interaction via a granular state machine managing unique event hashes (`viewedIds`).
+* Integrated custom tracking middleware (`logger.js`) to record interaction footprints seamlessly.
+* Optimized card layouts using Material-UI (`@mui/material`), updating left-accent border weights, text styles, and unread badge visibility dynamically upon user clicks.
 
-### `npm run build`
+### 3. Stage 3: Real-Time WebSocket Streaming Engine
+* Implemented a permanent event loop listener tracking `ws://4.224.186.213/evaluation-service/ws`.
+* Configured real-time frame parsers to push live incoming socket alerts smoothly to the top of the prioritized view state without triggering complete virtual DOM layout redraws or manual webpage refreshes.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🛠️ Technology Stack
+* **Frontend Framework:** React.js (Hooks architecture)
+* **Design & Layout Components:** Material-UI (MUI v5)
+* **Network Communication:** Native Fetch API & HTML5 WebSocket Web API
+* **Version Control:** Git & GitHub
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📂 Project Directory Structure
+```text
+notification_app_fe/
+├── public/                 # Static asset manifests and index.html
+├── src/
+│   ├── App.js              # Primary state hub, API fetches, and WebSocket streams
+│   ├── stage1_priority.js  # Campus priority logic and sorting matrices
+│   ├── logger.js           # Interactive tracking middleware logs
+│   ├── index.js            # Virtual DOM entry pointer
+└── README.md               # Engineering documentation (this file)
